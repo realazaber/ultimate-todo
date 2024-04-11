@@ -1,0 +1,61 @@
+@if (todo) {
+  <div
+    class="flex flex-col md:flex-row p-3 rounded-sm border-[1px] border-slate-400 m-3 justify-between"
+  >
+    <div class="flex flex-col gap-3">
+      @if (editMode) {
+        <form #singleTodoForm="ngForm" class="flex flex-col">
+          <div class="flex flex-row justify-center items-center gap-x-1">
+            <span>{{ todo.id }}</span>
+            <input type="text" name="title" [(ngModel)]="todo.title" />
+          </div>
+          <textarea
+            name="description"
+            cols="10"
+            rows="1"
+            [(ngModel)]="todo.description"
+          ></textarea>
+        </form>
+      } @else {
+        <span>{{ todo.id }} {{ todo.title }}</span>
+        <span> {{ todo.description }}</span>
+      }
+    </div>
+    <div class="flex flex-row md:flex-col justify-between">
+      <div>
+        <button (click)="toggleComplete()">
+          @if (todo.completed) {
+            <div
+              class="w-6 aspect-square rounded-sm border-[1px] border-slate-400 bg-primary flex justify-center items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-check-lg text-white"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"
+                />
+              </svg>
+            </div>
+          } @else {
+            <div
+              class="w-6 aspect-square rounded-sm border-[1px] border-slate-400"
+            ></div>
+          }
+        </button>
+      </div>
+      <div class="flex flex-row gap-x-2 justify-center items-center">
+        <button (click)="toggleEdit()" class="text-slate-600 underline">
+          {{ editBtnText }}
+        </button>
+        <button (click)="deleteTodo()" class="mt-auto text-primary font-bold">
+          X
+        </button>
+      </div>
+    </div>
+  </div>
+}

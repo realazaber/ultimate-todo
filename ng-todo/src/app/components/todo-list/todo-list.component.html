@@ -1,0 +1,25 @@
+<app-container
+  ><div class="my-12 flex flex-col sm:flex-row gap-y-3 sm:gap-x-3">
+    <app-create-todo
+      class="w-full sm:w-1/3"
+      (createdEmit)="ngOnInit()"
+    ></app-create-todo>
+
+    <div class="w-full">
+      <h3>Todo list</h3>
+      <div class="flex flex-wrap">
+        @if (todos.length > 0) {
+          @for (todo of todos; track todo) {
+            <app-todo
+              [todo]="todo"
+              class="w-full sm:max-w-[50%] md:max-w-[50%] md:min-w-[33%]"
+              (deletedEmit)="receieveDeletedEmit()"
+            ></app-todo>
+          }
+        } @else {
+          <span>There are no todos yet!</span>
+        }
+      </div>
+    </div>
+  </div>
+</app-container>

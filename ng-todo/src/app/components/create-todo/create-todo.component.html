@@ -1,0 +1,26 @@
+<form #todoForm="ngForm" class="flex flex-col gap-y-3">
+  <h3>Create todo</h3>
+
+  <input
+    type="text"
+    name="title"
+    placeholder="Title"
+    required
+    [(ngModel)]="newTodo.title"
+  />
+  <textarea
+    name="description"
+    cols="12"
+    rows="5"
+    placeholder="Description"
+    [(ngModel)]="newTodo.description"
+    required
+  ></textarea>
+  <button
+    type="submit"
+    (click)="createTodo()"
+    class="text-white bg-primary rounded-sm p-3 mx-auto"
+  >
+    Add todo
+  </button>
+</form>

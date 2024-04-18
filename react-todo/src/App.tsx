@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import Container from "./components/container";
+import CreateTodo from "./components/CreateTodo";
+import Footer from "./components/Footer";
+import Nav from "./components/Nav";
+import TodoList from "./components/TodoList";
+import { ITodo } from "./models/todo";
+import { getTodos } from "./services/todoservice";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const TodoContext = React.createContext<any>(getTodos());
+
+export default function App() {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+
+  useEffect(() => {
+    setTodos(getTodos());
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Nav />
 
-export default App
+      <Container>
+        <TodoContext.Provider value={[todos, setTodos]}>
+          <div className="my-12 flex flex-col sm:flex-row gap-y-3 sm:gap-x-3">
+            <CreateTodo />
+            <TodoList />
+          </div>
+        </TodoContext.Provider>
+      </Container>
+
+      <Footer />
+    </div>
+  );
+}
